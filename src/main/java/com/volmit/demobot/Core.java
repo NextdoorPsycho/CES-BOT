@@ -26,7 +26,7 @@ public class Core extends ListenerAdapter {
     public String discordGuildID = "";
     public String botColor = "0x000000";
     public String botOwnerID = "PutYourIdHere"; // ME
-    public String botIMG = "https://i.imgur.com/TpCn8vW.png"; // Cat pic
+    public String botIMG = "https://i.imgur.com/jyNVM4B.png"; // Cat pic
     public String botPrefix = ".";
     public String adminControllerRole = "Administrator";
     public String supportControllerRole = "Support";
@@ -52,7 +52,7 @@ public class Core extends ListenerAdapter {
         if (fw.checkModified()) {
             instance = new AtomicCache<>();
             L.v("Hot-loaded Config");
-            Demo.getJDA();
+            CESBot.getJDA();
         }
     }
 

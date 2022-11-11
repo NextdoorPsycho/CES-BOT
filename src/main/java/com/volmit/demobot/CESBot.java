@@ -16,7 +16,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import java.io.File;
 import java.util.Objects;
 
-public class Demo extends ListenerAdapter {
+public class CESBot extends ListenerAdapter {
 
     @Getter
     private static DataLoader loader;
@@ -40,8 +40,6 @@ public class Demo extends ListenerAdapter {
         log("DEBUG", message);
     }
 
-
-
     public static void main(String[] args) {
         //This sets the threading priorities to work on Droplet :( This is not safe but it works
         final int cores = Runtime.getRuntime().availableProcessors();
@@ -54,7 +52,7 @@ public class Demo extends ListenerAdapter {
         loader = new DataLoader(new FileSystemStorageAccess(new File("Data/BotData")));
         System.out.println("Initializing");
 
-        Core.get().botID = getJDA().getSelfUser().getIdLong();
+        Core.get().botID = getJDA().getSelfUser().getIdLong(); // -------------------------------IT CRASHES HERE---------------------------
         Core.get().botUser = getJDA().getUserById(Core.get().botID);
         Core.get().botName = Objects.requireNonNull(Core.get().botUser).getName();
         ListenerRegistry.All(getJDA()); // ALL COMMANDS ARE HERE

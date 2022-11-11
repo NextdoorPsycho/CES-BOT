@@ -2,8 +2,8 @@ package com.volmit.demobot.commands.slash;
 
 
 import art.arcane.quill.execution.J;
+import com.volmit.demobot.CESBot;
 import com.volmit.demobot.Core;
-import com.volmit.demobot.Demo;
 import com.volmit.demobot.util.VolmitEmbed;
 import com.volmit.demobot.util.io.data.User;
 import lombok.SneakyThrows;
@@ -79,7 +79,7 @@ public class TicketMasterButton extends ListenerAdapter {
         }
         e.reply("Ticket closed!").setEphemeral(true).queue();
         if (path.delete()) {
-            Demo.info("Deleted file: Tickets/ticket-" + ticketId + ".txt");
+            CESBot.info("Deleted file: Tickets/ticket-" + ticketId + ".txt");
         }
 
 
@@ -87,8 +87,8 @@ public class TicketMasterButton extends ListenerAdapter {
 
     public void createTicket(ButtonInteractionEvent e) {
         Member m = e.getMember();
-        User u = Demo.getLoader().getUser(m.getUser().getIdLong());
-        User botData = Demo.getLoader().getUser(1000000001);
+        User u = CESBot.getLoader().getUser(m.getUser().getIdLong());
+        User botData = CESBot.getLoader().getUser(1000000001);
         Guild g = m.getGuild();
 
         //TODO: permissions check here
@@ -102,7 +102,7 @@ public class TicketMasterButton extends ListenerAdapter {
                 }
             }
             if (ticketCategory == null) {
-                Demo.warn("Ticket category not found!");
+                CESBot.warn("Ticket category not found!");
                 return;
             }
             botData.reactions(botData.reactions() + 1);
@@ -131,7 +131,7 @@ public class TicketMasterButton extends ListenerAdapter {
                         chat.sendMessageEmbeds(embed.build()).setActionRow(button).queue(msg -> msg.pin().queue());
                     });
             u.ticketIds().add(ticketNumber);
-            Demo.info("Created ticket for " + m.getUser().getName() + " with id :" + ticketNumber);
+            CESBot.info("Created ticket for " + m.getUser().getName() + " with id :" + ticketNumber);
 
             botData.money(botData.money() + 1);
             remakeEmbedMessage(m.getGuild().getTextChannelsByName("ticket-hub", true).get(0));
@@ -143,10 +143,10 @@ public class TicketMasterButton extends ListenerAdapter {
 
     private void closeTicket(ButtonInteractionEvent e) {
         Member m = e.getMember();
-        User botData = Demo.getLoader().getUser(1000000001);
+        User botData = CESBot.getLoader().getUser(1000000001);
         TextChannel tc = e.getChannel().asTextChannel();
         String tcid = tc.getName().trim().replace("ticket-", "");
-        User u = Demo.getLoader().getUser(m.getUser().getIdLong());
+        User u = CESBot.getLoader().getUser(m.getUser().getIdLong());
 
 
         if (u.ticketIds().contains(tcid) || (m.getRoles().contains(m.getGuild().getRolesByName("Administrator", false).get(0)) || m.getRoles().contains(m.getGuild().getRolesByName("Support", false).get(0)))) {
@@ -157,11 +157,11 @@ public class TicketMasterButton extends ListenerAdapter {
             }
             e.getChannel().delete().queue(d -> {
                 for (Member mem : tc.getMembers()) {
-                    User cUsers = Demo.getLoader().getUser(mem.getUser().getIdLong());
-                    Demo.info("Removed: " + tcid + "from: " + mem);
+                    User cUsers = CESBot.getLoader().getUser(mem.getUser().getIdLong());
+                    CESBot.info("Removed: " + tcid + "from: " + mem);
                     cUsers.ticketIds().remove(tcid);
                 }
-                Demo.info("Closed ticket for " + m.getUser().getName() + " ID: " + tcid);
+                CESBot.info("Closed ticket for " + m.getUser().getName() + " ID: " + tcid);
             });
 
             botData.money(botData.money() - 1);
@@ -179,7 +179,7 @@ public class TicketMasterButton extends ListenerAdapter {
 
 
     public static void makeTicketEmbedMessage(TextChannel textChannel) {
-        User botData = Demo.getLoader().getUser(1000000001);
+        User botData = CESBot.getLoader().getUser(1000000001);
 
         EmbedBuilder embed = new VolmitEmbed();
         embed.setTitle("Welcome to the Ticket center!");
