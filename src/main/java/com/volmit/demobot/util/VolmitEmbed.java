@@ -4,7 +4,7 @@ package com.volmit.demobot.util;
 
 
 import com.volmit.demobot.Core;
-import com.volmit.demobot.CESBot;
+import com.volmit.demobot.Demo;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.entities.channel.middleman.MessageChannel;
@@ -141,7 +141,7 @@ public class VolmitEmbed extends EmbedBuilder {
     public void send(Message message, MessageChannel channel, boolean deleteMSG, int deleteAfterMS, List<String> reactions) {
         if (reactions == null) reactions = new ArrayList<>();
         if (message == null && channel == null) {
-            CESBot.error("No channel and message specified.");
+            Demo.error("No channel and message specified.");
         } else if (message != null) {
             List<String> finalReactions = reactions;
             message.getChannel().sendMessageEmbeds(this.build()).queue(msg -> {

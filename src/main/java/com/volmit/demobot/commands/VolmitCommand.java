@@ -2,7 +2,7 @@
 package com.volmit.demobot.commands;
 
 
-import com.volmit.demobot.CESBot;
+import com.volmit.demobot.Demo;
 import com.volmit.demobot.Core;
 import com.volmit.demobot.util.VolmitEmbed;
 import lombok.Getter;
@@ -87,7 +87,7 @@ public class VolmitCommand extends ListenerAdapter {
         if (getRoles() != null && getRoles().size() != 0) {
             if (noPermission(Objects.requireNonNull(e.getMember()).getRoles(), e.getAuthor().getId())) return;
         }
-        CESBot.info("Command passed checks: " + getName());
+        Demo.info("Command passed checks: " + getName());
         if (!needsArguments) {
             handle(null, e);
         } else if (getCategory() != null) {
@@ -97,7 +97,7 @@ public class VolmitCommand extends ListenerAdapter {
             } else {
                 StringBuilder subs = new StringBuilder("Subs: ");
                 for (VolmitCommand cmd : getSubcommands()) subs.append(cmd.getName()).append((" "));
-                CESBot.info(subs.toString());
+                Demo.info(subs.toString());
                 for (VolmitCommand sub : getSubcommands()) {
                     for (String commandAlias : sub.getCommands()) {
                         if (commandAlias.equalsIgnoreCase(args.get(1))) {
@@ -109,7 +109,7 @@ public class VolmitCommand extends ListenerAdapter {
         } else if (args.size() < 2) {
             sendHelp(e.getMessage());
         } else {
-            CESBot.info("Final command. Running: " + getName());
+            Demo.info("Final command. Running: " + getName());
             handle(args, e);
         }
     }

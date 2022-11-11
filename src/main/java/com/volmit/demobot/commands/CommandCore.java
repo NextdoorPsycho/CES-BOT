@@ -1,6 +1,6 @@
 package com.volmit.demobot.commands;
 
-import com.volmit.demobot.CESBot;
+import com.volmit.demobot.Demo;
 import com.volmit.demobot.Core;
 import com.volmit.demobot.util.VolmitEmbed;
 import com.volmit.demobot.util.instance.SkipCommand;
@@ -32,7 +32,7 @@ public class CommandCore extends VolmitCommand {
     // Handle
     @Override
     public void handle(List<String> args, MessageReceivedEvent e) {
-        CESBot.info("Command List Initialized");
+        Demo.info("Command List Initialized");
 
         // Init embed
         VolmitEmbed embed = new VolmitEmbed("The Abyssalith - " + Core.get().botName + " Info Page!", e.getMessage());
