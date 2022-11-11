@@ -2,7 +2,7 @@
 package com.volmit.demobot.util.io.storage;
 
 import art.arcane.quill.io.IO;
-import com.volmit.demobot.Demo;
+import com.volmit.demobot.CESBot;
 import com.volmit.demobot.util.io.StorageAccess;
 
 
@@ -15,7 +15,7 @@ public class FileSystemStorageAccess implements StorageAccess {
 
     public FileSystemStorageAccess(File root) {
         this.root = root;
-        Demo.info("Created Storage Access (File System) in " + root.getAbsolutePath());
+        CESBot.info("Created Storage Access (File System) in " + root.getAbsolutePath());
     }
 
     private File fileFor(String typeName, Long key) {

@@ -52,7 +52,7 @@ public class Core extends ListenerAdapter {
         if (fw.checkModified()) {
             instance = new AtomicCache<>();
             L.v("Hot-loaded Config");
-            Demo.getJDA();
+            CESBot.getJDA();
         }
     }
 

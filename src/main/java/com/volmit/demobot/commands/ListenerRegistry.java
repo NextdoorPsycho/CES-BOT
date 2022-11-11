@@ -2,10 +2,9 @@
 package com.volmit.demobot.commands;
 
 import com.volmit.demobot.Core;
-import com.volmit.demobot.Demo;
+import com.volmit.demobot.CESBot;
 import com.volmit.demobot.commands.prefix.Passive;
 import com.volmit.demobot.commands.prefix.Shutdown;
-import com.volmit.demobot.commands.slash.TicketMasterButton;
 import com.volmit.demobot.util.instance.SkipCommand;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
@@ -34,13 +33,11 @@ public class ListenerRegistry extends ListenerAdapter {
      * builder.addSlashCommand(new PingCommand());
      */
     public static void All(JDA jda) {
-        jda.addEventListener(new Demo()); // [ DONT TOUCH THESE  LISTENERS ]
+        jda.addEventListener(new CESBot()); // [ DONT TOUCH THESE  LISTENERS ]
         jda.addEventListener(new Core()); // [ DONT TOUCH THESE  LISTENERS ]
         jda.addEventListener(new Shutdown()); // [ DONT TOUCH THESE  LISTENERS ]
         jda.addEventListener(new Passive());
 
-        //Listeners
-        jda.addEventListener(new TicketMasterButton());
 
         //END
         jda.addEventListener(new CommandCore(jda)); // [ DONT TOUCH THESE  LISTENERS ]
@@ -82,10 +79,10 @@ public class ListenerRegistry extends ListenerAdapter {
                         return (ListenerAdapter) cmdClass.getConstructors()[0].newInstance();
                     } catch (InstantiationException | IllegalAccessException | InvocationTargetException | IllegalArgumentException e) {
                         e.printStackTrace();
-                        Demo.debug("Failed to load command " + cmdClass.getName() + " with empty constructor!");
+                        CESBot.debug("Failed to load command " + cmdClass.getName() + " with empty constructor!");
                     } catch (ArrayIndexOutOfBoundsException e) {
                         e.printStackTrace();
-                        Demo.debug("Failed to load command " + cmdClass.getName() + " due to no constructor being present!");
+                        CESBot.debug("Failed to load command " + cmdClass.getName() + " due to no constructor being present!");
                     }
                     return null;
                 })
@@ -95,7 +92,7 @@ public class ListenerRegistry extends ListenerAdapter {
                     loadedCommands.add(c.getClass().getSimpleName());
                 });
         stream.close();
-        Demo.debug("Loaded " + (loadedCommands.isEmpty() ? "NONE" : String.join(", ", loadedCommands)) + " from package " + packagePath);
+        CESBot.debug("Loaded " + (loadedCommands.isEmpty() ? "NONE" : String.join(", ", loadedCommands)) + " from package " + packagePath);
     }
 
 
@@ -104,7 +101,7 @@ public class ListenerRegistry extends ListenerAdapter {
             Class<?> c = Class.forName(packageName + "."
                     + className.substring(0, className.lastIndexOf('.')));
             if (c.isAssignableFrom(ListenerAdapter.class)) {
-                Demo.debug("Unable to load class: " + c.getName() + " because it does not extend ListenerAdapter");
+                CESBot.debug("Unable to load class: " + c.getName() + " because it does not extend ListenerAdapter");
             }
             return c;
         } catch (ClassNotFoundException e) {

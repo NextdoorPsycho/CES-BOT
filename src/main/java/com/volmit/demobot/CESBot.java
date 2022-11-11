@@ -16,7 +16,7 @@ import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import java.io.File;
 import java.util.Objects;
 
-public class Demo extends ListenerAdapter {
+public class CESBot extends ListenerAdapter {
 
     @Getter
     private static DataLoader loader;
